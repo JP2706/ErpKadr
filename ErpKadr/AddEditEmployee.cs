@@ -37,11 +37,11 @@ namespace ErpKadr
                     return;
             _employees = fileHelper.DeserializeFromFile();
 
-            if (!ValidationTextBoxDecimal(tbPycheck))
-                return;
+            //if (!ValidationTextBoxDecimal(tbPycheck))
+            //    return;
 
-            if (!ValidationTextBoxInt(tbEN))
-                return;
+            //if (!ValidationTextBoxInt(tbEN))
+            //    return;
             if (_employeeId != 0)
                 _employees.RemoveAll(x => x.Id == _employeeId);
             else
@@ -79,7 +79,7 @@ namespace ErpKadr
                 Name = tbName.Text,
                 Surname = tbSurname.Text,
                 DateToEmploy = dtpDTE.Value.ToShortDateString(),
-                Paycheck = decimal.Parse(tbPycheck.Text),
+                Paycheck = nudPycheck.Value,
                 EmployeeNumer = int.Parse(tbEN.Text),
                 Comments = rtbComments.Text,
                 DateSlowDown = ""
@@ -96,7 +96,7 @@ namespace ErpKadr
                 Name = tbName.Text,
                 Surname = tbSurname.Text,
                 DateToEmploy = dtpDTE.Value.ToShortDateString(),
-                Paycheck = decimal.Parse(tbPycheck.Text),
+                Paycheck = nudPycheck.Value,
                 EmployeeNumer = int.Parse(tbEN.Text),
                 Comments = rtbComments.Text,
                 DateSlowDown = dtpDSD.Value.ToShortDateString(),
@@ -111,7 +111,7 @@ namespace ErpKadr
             tbName.Text = _employee.Name;
             tbSurname.Text = _employee.Surname;
             dtpDTE.Value = DateTime.Parse(_employee.DateToEmploy);
-            tbPycheck.Text = _employee.Paycheck.ToString();
+            nudPycheck.Value = _employee.Paycheck;
             tbEN.Text = _employee.EmployeeNumer.ToString();
             rtbComments.Text = _employee.Comments;
         }
@@ -124,7 +124,7 @@ namespace ErpKadr
                 tbName.Enabled = false;
                 tbSurname.Enabled = false;
                 dtpDTE.Enabled = false;
-                tbPycheck.Enabled = false;
+                nudPycheck.Enabled = false;
                 tbEN.Enabled = false;
                 rtbComments.Enabled = false;
                 dtpDSD.Enabled = true;
@@ -143,16 +143,16 @@ namespace ErpKadr
             }
         }
 
-        private bool ValidationTextBoxDecimal(System.Windows.Forms.TextBox textBox)
-        {
-            if (textBox.Text == string.Empty || !decimal.TryParse(textBox.Text, out decimal numeric))
-            {
-                MessageBox.Show($"Wartość pola {textBox.Tag} jest pusta lub niepoprawna", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false;
-            }
-            return true;
+        //private bool ValidationTextBoxDecimal(System.Windows.Forms.TextBox textBox)
+        //{
+        //    if (textBox.Text == string.Empty || !decimal.TryParse(textBox.Text, out decimal numeric))
+        //    {
+        //        MessageBox.Show($"Wartość pola {textBox.Tag} jest pusta lub niepoprawna", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        return false;
+        //    }
+        //    return true;
             
-        }
+        //}
 
         private bool ValidationTextBoxInt(System.Windows.Forms.TextBox textBox)
         {
@@ -163,6 +163,15 @@ namespace ErpKadr
             }
             return true;
 
+        }
+
+        private void tbEN_Leave(object sender, EventArgs e)
+        {
+            if(!ValidationTextBoxInt(tbEN))
+            {
+                tbEN.Select();
+            }
+            
         }
     }
 }

@@ -35,7 +35,6 @@
             this.tbSurname = new System.Windows.Forms.TextBox();
             this.lbSurname = new System.Windows.Forms.Label();
             this.lbDateToEmploy = new System.Windows.Forms.Label();
-            this.tbPycheck = new System.Windows.Forms.TextBox();
             this.lbPycheck = new System.Windows.Forms.Label();
             this.lbComments = new System.Windows.Forms.Label();
             this.rtbComments = new System.Windows.Forms.RichTextBox();
@@ -46,6 +45,8 @@
             this.lbEN = new System.Windows.Forms.Label();
             this.dtpDSD = new System.Windows.Forms.DateTimePicker();
             this.lbDataSlowDown = new System.Windows.Forms.Label();
+            this.nudPycheck = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.nudPycheck)).BeginInit();
             this.SuspendLayout();
             // 
             // lbId
@@ -107,14 +108,6 @@
             this.lbDateToEmploy.TabIndex = 6;
             this.lbDateToEmploy.Text = "Data Zat:";
             // 
-            // tbPycheck
-            // 
-            this.tbPycheck.Location = new System.Drawing.Point(89, 114);
-            this.tbPycheck.Name = "tbPycheck";
-            this.tbPycheck.Size = new System.Drawing.Size(146, 20);
-            this.tbPycheck.TabIndex = 9;
-            this.tbPycheck.Tag = "Wypłata";
-            // 
             // lbPycheck
             // 
             this.lbPycheck.AutoSize = true;
@@ -175,6 +168,7 @@
             this.tbEN.Size = new System.Drawing.Size(146, 20);
             this.tbEN.TabIndex = 16;
             this.tbEN.Tag = "Telefon";
+            this.tbEN.Leave += new System.EventHandler(this.tbEN_Leave);
             // 
             // lbEN
             // 
@@ -202,11 +196,30 @@
             this.lbDataSlowDown.TabIndex = 17;
             this.lbDataSlowDown.Text = "Data Zwo:";
             // 
+            // nudPycheck
+            // 
+            this.nudPycheck.DecimalPlaces = 2;
+            this.nudPycheck.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            this.nudPycheck.Location = new System.Drawing.Point(89, 115);
+            this.nudPycheck.Maximum = new decimal(new int[] {
+            30000,
+            0,
+            0,
+            0});
+            this.nudPycheck.Name = "nudPycheck";
+            this.nudPycheck.Size = new System.Drawing.Size(146, 20);
+            this.nudPycheck.TabIndex = 19;
+            // 
             // AddEditEmployee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(292, 325);
+            this.Controls.Add(this.nudPycheck);
             this.Controls.Add(this.dtpDSD);
             this.Controls.Add(this.lbDataSlowDown);
             this.Controls.Add(this.tbEN);
@@ -216,7 +229,6 @@
             this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.rtbComments);
             this.Controls.Add(this.lbComments);
-            this.Controls.Add(this.tbPycheck);
             this.Controls.Add(this.lbPycheck);
             this.Controls.Add(this.lbDateToEmploy);
             this.Controls.Add(this.tbSurname);
@@ -230,6 +242,7 @@
             this.Name = "AddEditEmployee";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AddEditEmployee";
+            ((System.ComponentModel.ISupportInitialize)(this.nudPycheck)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -244,7 +257,6 @@
         private System.Windows.Forms.TextBox tbSurname;
         private System.Windows.Forms.Label lbSurname;
         private System.Windows.Forms.Label lbDateToEmploy;
-        private System.Windows.Forms.TextBox tbPycheck;
         private System.Windows.Forms.Label lbPycheck;
         private System.Windows.Forms.Label lbComments;
         private System.Windows.Forms.RichTextBox rtbComments;
@@ -255,5 +267,6 @@
         private System.Windows.Forms.Label lbEN;
         private System.Windows.Forms.DateTimePicker dtpDSD;
         private System.Windows.Forms.Label lbDataSlowDown;
+        private System.Windows.Forms.NumericUpDown nudPycheck;
     }
 }
