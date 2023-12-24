@@ -182,6 +182,7 @@
             // dtpDSD
             // 
             this.dtpDSD.Enabled = false;
+            this.dtpDSD.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDSD.Location = new System.Drawing.Point(89, 248);
             this.dtpDSD.Name = "dtpDSD";
             this.dtpDSD.Size = new System.Drawing.Size(146, 20);
