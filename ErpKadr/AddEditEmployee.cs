@@ -16,43 +16,43 @@ namespace ErpKadr
     public partial class AddEditEmployee : Form
     {
         private FileHelper<List<Employee>> fileHelper = new FileHelper<List<Employee>>(Path.Combine(Environment.CurrentDirectory, "Employees.xml"));
-        private int employeeId;
-        private bool enabledDataSlowDow;
-        private List<Employee> employees;
-        private Employee employee;
-        public AddEditEmployee(string nameForm, int _employeeId = 0, bool _enabledDataSlowDow = false)
+        private int _employeeId;
+        private bool _enabledDataSlowDow;
+        private List<Employee> _employees;
+        private Employee _employee;
+        public AddEditEmployee(string nameForm, int employeeId = 0, bool enabledDataSlowDow = false)
         {
             InitializeComponent();
             Text = nameForm;
-            employeeId = _employeeId;
-            enabledDataSlowDow = _enabledDataSlowDow;
+            _employeeId = employeeId;
+            _enabledDataSlowDow = enabledDataSlowDow;
             GetEmployeeData();
             EnabledDataSlowDow(_enabledDataSlowDow);
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            if (enabledDataSlowDow == true)
+            if (_enabledDataSlowDow)
                 if (MessageBox.Show("Czy napewno chcesz zolnić pracowanika?", "Ostrzeżenie", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                     return;
-            employees = fileHelper.DeserializeFromFile();
+            _employees = fileHelper.DeserializeFromFile();
 
             if (!ValidationTextBoxDecimal(tbPycheck))
                 return;
 
             if (!ValidationTextBoxInt(tbEN))
                 return;
-            if (employeeId != 0)
-                employees.RemoveAll(x => x.Id == employeeId);
+            if (_employeeId != 0)
+                _employees.RemoveAll(x => x.Id == _employeeId);
             else
-                AssignNewIdEmpolyees(employees);
+                AssignNewIdEmpolyees(_employees);
 
-            if (enabledDataSlowDow == false)
-                AddNewEmployeeToList(employees);
+            if (_enabledDataSlowDow == false)
+                AddNewEmployeeToList(_employees);
             else
-                AddNewEmployeeToListWithDataSlowNow(employees);
+                AddNewEmployeeToListWithDataSlowNow(_employees);
 
-            fileHelper.SerializeToFile(employees);
+            fileHelper.SerializeToFile(_employees);
             Close();
         }
 
@@ -65,9 +65,9 @@ namespace ErpKadr
         {
             var employeesWithHighestId = _employees.OrderByDescending(x => x.Id).FirstOrDefault();
             if (employeesWithHighestId == null)
-                employeeId = 1;
+                _employeeId = 1;
             else
-                employeeId = employeesWithHighestId.Id + 1;
+                _employeeId = employeesWithHighestId.Id + 1;
         }
 
         private void AddNewEmployeeToList(List<Employee> _employees)
@@ -75,7 +75,7 @@ namespace ErpKadr
          
             Employee employee = new Employee
             {
-                Id = employeeId,
+                Id = _employeeId,
                 Name = tbName.Text,
                 Surname = tbSurname.Text,
                 DateToEmploy = dtpDTE.Value.ToShortDateString(),
@@ -85,14 +85,14 @@ namespace ErpKadr
                 DateSlowDown = ""
             };
 
-            employees.Add(employee);
+            _employees.Add(employee);
         }
 
         private void AddNewEmployeeToListWithDataSlowNow(List<Employee> _employees)
         {
             Employee employee = new Employee
             {
-                Id = employeeId,
+                Id = _employeeId,
                 Name = tbName.Text,
                 Surname = tbSurname.Text,
                 DateToEmploy = dtpDTE.Value.ToShortDateString(),
@@ -102,18 +102,18 @@ namespace ErpKadr
                 DateSlowDown = dtpDSD.Value.ToShortDateString(),
             };
 
-            employees.Add(employee);
+            _employees.Add(employee);
         }
 
         private void FillTextBox()
         {
-            tbId.Text = employee.Id.ToString();
-            tbName.Text = employee.Name;
-            tbSurname.Text = employee.Surname;
-            dtpDTE.Value = DateTime.Parse(employee.DateToEmploy);
-            tbPycheck.Text = employee.Paycheck.ToString();
-            tbEN.Text = employee.EmployeeNumer.ToString();
-            rtbComments.Text = employee.Comments;
+            tbId.Text = _employee.Id.ToString();
+            tbName.Text = _employee.Name;
+            tbSurname.Text = _employee.Surname;
+            dtpDTE.Value = DateTime.Parse(_employee.DateToEmploy);
+            tbPycheck.Text = _employee.Paycheck.ToString();
+            tbEN.Text = _employee.EmployeeNumer.ToString();
+            rtbComments.Text = _employee.Comments;
         }
 
         private void EnabledDataSlowDow(bool _enabledDataSlowDow)
@@ -133,11 +133,11 @@ namespace ErpKadr
 
         private void GetEmployeeData()
         {
-            if (employeeId != 0)
+            if (_employeeId != 0)
             {
                 var employees = fileHelper.DeserializeFromFile();
-                employee = employees.FirstOrDefault(x => x.Id == employeeId);
-                if (employee == null)
+                _employee = employees.FirstOrDefault(x => x.Id == _employeeId);
+                if (_employee == null)
                     throw new Exception("Brak pracownika o podanym id");
                 FillTextBox();
             }
