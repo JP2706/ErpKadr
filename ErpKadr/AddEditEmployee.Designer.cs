@@ -156,6 +156,7 @@
             // 
             // dtpDTE
             // 
+            this.dtpDTE.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDTE.Location = new System.Drawing.Point(89, 89);
             this.dtpDTE.Name = "dtpDTE";
             this.dtpDTE.Size = new System.Drawing.Size(146, 20);
