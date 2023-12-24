@@ -47,6 +47,9 @@ namespace ErpKadr
             else
                 AssignNewIdEmpolyees(_employees);
 
+            if (string.IsNullOrEmpty(tbEN.Text))
+                tbEN.Text = "Nie podano";
+
             if (_enabledDataSlowDow == false)
                 AddNewEmployeeToList(_employees);
             else
@@ -80,7 +83,7 @@ namespace ErpKadr
                 Surname = tbSurname.Text,
                 DateToEmploy = dtpDTE.Value.ToShortDateString(),
                 Paycheck = nudPycheck.Value,
-                EmployeeNumer = int.Parse(tbEN.Text),
+                EmployeeNumer = tbEN.Text,
                 Comments = rtbComments.Text,
                 DateSlowDown = ""
             };
@@ -97,7 +100,7 @@ namespace ErpKadr
                 Surname = tbSurname.Text,
                 DateToEmploy = dtpDTE.Value.ToShortDateString(),
                 Paycheck = nudPycheck.Value,
-                EmployeeNumer = int.Parse(tbEN.Text),
+                EmployeeNumer = tbEN.Text,
                 Comments = rtbComments.Text,
                 DateSlowDown = dtpDSD.Value.ToShortDateString(),
             };
@@ -156,9 +159,9 @@ namespace ErpKadr
 
         private bool ValidationTextBoxInt(System.Windows.Forms.TextBox textBox)
         {
-            if (textBox.Text == string.Empty || !int.TryParse(textBox.Text, out int numeric))
+            if (!int.TryParse(textBox.Text, out int numeric) && !string.IsNullOrEmpty(textBox.Text))
             {
-                MessageBox.Show($"Wartość pola {textBox.Tag} jest pusta lub niepoprawna", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Wartość pola {textBox.Tag} jest niepoprawna", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
             return true;

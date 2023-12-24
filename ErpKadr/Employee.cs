@@ -13,7 +13,7 @@ namespace ErpKadr
         public string Surname { get; set; }
         public string DateToEmploy {  get; set; }
         public decimal Paycheck { get; set; }
-        public int EmployeeNumer { get; set; }
+        public string EmployeeNumer { get; set; }
         public string Comments {  get; set; }
         public string DateSlowDown { get; set; }
 
