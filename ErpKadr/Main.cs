@@ -13,11 +13,11 @@ namespace ErpKadr
 {
     public partial class Main : Form
     {
-        private FileHelper<List<Employee>> fileHelper = new FileHelper<List<Employee>>(Path.Combine(Environment.CurrentDirectory, "Employees.xml"));
+        private FileHelper<List<Employee>> _fileHelper = new FileHelper<List<Employee>>(Path.Combine(Environment.CurrentDirectory, "Employees.xml"));
         public Main()
         {
             InitializeComponent();
-            var employees = fileHelper.DeserializeFromFile();
+            var employees = _fileHelper.DeserializeFromFile();
             dgvKadr.DataSource = employees;
             SetColumnHeader();
         }
@@ -73,7 +73,7 @@ namespace ErpKadr
 
             var employees = new List<Employee>();
             var employees2 = new List<Employee>();
-            employees = fileHelper.DeserializeFromFile();
+            employees = _fileHelper.DeserializeFromFile();
             if(cbKadr.Text == "Wszyscy")
             {
                 RefreshDgv();
@@ -112,7 +112,7 @@ namespace ErpKadr
         }
         private void RefreshDgv()
         {
-            var Data = fileHelper.DeserializeFromFile();
+            var Data = _fileHelper.DeserializeFromFile();
             dgvKadr.DataSource = Data;
         }
     }

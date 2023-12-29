@@ -15,7 +15,7 @@ namespace ErpKadr
 {
     public partial class AddEditEmployee : Form
     {
-        private FileHelper<List<Employee>> fileHelper = new FileHelper<List<Employee>>(Path.Combine(Environment.CurrentDirectory, "Employees.xml"));
+        private FileHelper<List<Employee>> _fileHelper = new FileHelper<List<Employee>>(Path.Combine(Environment.CurrentDirectory, "Employees.xml"));
         private int _employeeId;
         private bool _enabledDataSlowDow;
         private List<Employee> _employees;
@@ -35,7 +35,7 @@ namespace ErpKadr
             if (_enabledDataSlowDow)
                 if (MessageBox.Show("Czy napewno chcesz zolnić pracowanika?", "Ostrzeżenie", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                     return;
-            _employees = fileHelper.DeserializeFromFile();
+            _employees = _fileHelper.DeserializeFromFile();
 
             //if (!ValidationTextBoxDecimal(tbPycheck))
             //    return;
@@ -55,7 +55,7 @@ namespace ErpKadr
             else
                 AddNewEmployeeToListWithDataSlowNow(_employees);
 
-            fileHelper.SerializeToFile(_employees);
+            _fileHelper.SerializeToFile(_employees);
             Close();
         }
 
@@ -138,7 +138,7 @@ namespace ErpKadr
         {
             if (_employeeId != 0)
             {
-                var employees = fileHelper.DeserializeFromFile();
+                var employees = _fileHelper.DeserializeFromFile();
                 _employee = employees.FirstOrDefault(x => x.Id == _employeeId);
                 if (_employee == null)
                     throw new Exception("Brak pracownika o podanym id");
@@ -176,5 +176,7 @@ namespace ErpKadr
             }
             
         }
+
+
     }
 }
