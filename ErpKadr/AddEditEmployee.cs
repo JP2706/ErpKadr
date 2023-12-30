@@ -33,8 +33,16 @@ namespace ErpKadr
         private void btnConfirm_Click(object sender, EventArgs e)
         {
             if (_enabledDataSlowDow)
+            {
                 if (MessageBox.Show("Czy napewno chcesz zolnić pracowanika?", "Ostrzeżenie", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                     return;
+                else if(dtpDTE.Value >= dtpDSD.Value)
+                {
+                    MessageBox.Show("Data zwolnienia niepoprawna!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }    
+
+            }
             _employees = _fileHelper.DeserializeFromFile();
 
             //if (!ValidationTextBoxDecimal(tbPycheck))
@@ -50,7 +58,7 @@ namespace ErpKadr
             if (string.IsNullOrEmpty(tbEN.Text))
                 tbEN.Text = "Nie podano";
 
-            if (_enabledDataSlowDow == false)
+            if (!_enabledDataSlowDow)
                 AddNewEmployeeToList(_employees);
             else
                 AddNewEmployeeToListWithDataSlowNow(_employees);
@@ -75,17 +83,16 @@ namespace ErpKadr
 
         private void AddNewEmployeeToList(List<Employee> _employees)
         {
-         
+
             Employee employee = new Employee
             {
                 Id = _employeeId,
                 Name = tbName.Text,
                 Surname = tbSurname.Text,
-                DateToEmploy = dtpDTE.Value.ToShortDateString(),
+                DateToEmploy = dtpDTE.Value.Date,
                 Paycheck = nudPycheck.Value,
                 EmployeeNumer = tbEN.Text,
                 Comments = rtbComments.Text,
-                DateSlowDown = ""
             };
 
             _employees.Add(employee);
@@ -98,11 +105,11 @@ namespace ErpKadr
                 Id = _employeeId,
                 Name = tbName.Text,
                 Surname = tbSurname.Text,
-                DateToEmploy = dtpDTE.Value.ToShortDateString(),
+                DateToEmploy = dtpDTE.Value.Date,
                 Paycheck = nudPycheck.Value,
                 EmployeeNumer = tbEN.Text,
                 Comments = rtbComments.Text,
-                DateSlowDown = dtpDSD.Value.ToShortDateString(),
+                DateSlowDown = dtpDSD.Value.Date,
             };
 
             _employees.Add(employee);
@@ -113,7 +120,7 @@ namespace ErpKadr
             tbId.Text = _employee.Id.ToString();
             tbName.Text = _employee.Name;
             tbSurname.Text = _employee.Surname;
-            dtpDTE.Value = DateTime.Parse(_employee.DateToEmploy);
+            dtpDTE.Value = _employee.DateToEmploy;
             nudPycheck.Value = _employee.Paycheck;
             tbEN.Text = _employee.EmployeeNumer.ToString();
             rtbComments.Text = _employee.Comments;
@@ -176,7 +183,5 @@ namespace ErpKadr
             }
             
         }
-
-
     }
 }

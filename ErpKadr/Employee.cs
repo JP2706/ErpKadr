@@ -11,11 +11,11 @@ namespace ErpKadr
         public int Id {  get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string DateToEmploy {  get; set; }
+        public DateTime DateToEmploy {  get; set; }
         public decimal Paycheck { get; set; }
         public string EmployeeNumer { get; set; }
         public string Comments {  get; set; }
-        public string DateSlowDown { get; set; }
+        public DateTime? DateSlowDown { get; set; }
 
     }
 }

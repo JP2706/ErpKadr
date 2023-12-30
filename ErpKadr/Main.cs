@@ -38,7 +38,7 @@ namespace ErpKadr
                 return;
             }
 
-            if (dgvKadr.SelectedRows[0].Cells[7].Value.ToString() != "")
+            if (dgvKadr.SelectedRows[0].Cells[7].Value != null)
             {
                 MessageBox.Show("Nie można edytować pracownika, który został zwolniony!", "Uwaga!");
                 return;
@@ -57,7 +57,7 @@ namespace ErpKadr
                 return;
             }
 
-            if (dgvKadr.SelectedRows[0].Cells[7].Value.ToString() != "")
+            if (dgvKadr.SelectedRows[0].Cells[7].Value != null )
             {
                 MessageBox.Show("Ten praconik został już zwolniony!", "Uwaga!");
                 return;
@@ -82,7 +82,7 @@ namespace ErpKadr
             {
                 foreach (Employee employee in employees)
                 {
-                    if (!(employee.DateSlowDown != ""))
+                    if (!(employee.DateSlowDown != null))
                         employees2.Add(employee);
                 }
                 dgvKadr.DataSource = employees2;
@@ -91,7 +91,7 @@ namespace ErpKadr
             {
                 foreach (Employee employee in employees)
                 {
-                    if (employee.DateSlowDown != "")
+                    if (employee.DateSlowDown != null)
                         employees2.Add(employee);
                 }
                 dgvKadr.DataSource= employees2;
