@@ -36,11 +36,11 @@ namespace ErpKadr
             {
                 if (MessageBox.Show("Czy napewno chcesz zolnić pracowanika?", "Ostrzeżenie", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                     return;
-                else if(dtpDTE.Value >= dtpDSD.Value)
+                else if (dtpDTE.Value >= dtpDSD.Value)
                 {
                     MessageBox.Show("Data zwolnienia niepoprawna!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
-                }    
+                }
 
             }
             _employees = _fileHelper.DeserializeFromFile();
@@ -161,7 +161,7 @@ namespace ErpKadr
         //        return false;
         //    }
         //    return true;
-            
+
         //}
 
         private bool ValidationTextBoxInt(System.Windows.Forms.TextBox textBox)
@@ -177,11 +177,11 @@ namespace ErpKadr
 
         private void tbEN_Leave(object sender, EventArgs e)
         {
-            if(!ValidationTextBoxInt(tbEN))
+            if (!ValidationTextBoxInt(tbEN))
             {
                 tbEN.Select();
             }
-            
+
         }
     }
 }
